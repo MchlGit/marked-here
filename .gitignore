@@ -1,0 +1,101 @@
+####################################
+# OS / Editor
+####################################
+.DS_Store
+.DS_*
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime*
+Thumbs.db
+
+####################################
+# Logs & temp files
+####################################
+*.log
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+rerun.txt
+
+####################################
+# Environment variables / secrets
+####################################
+.env
+.env.*
+config/master.key
+config/credentials/*.key
+
+####################################
+# Ruby / Rails
+####################################
+*.gem
+*.rbc
+/.bundle
+/vendor/bundle
+/lib/bundler/man
+.byebug_history
+.rspec
+.rvmrc
+
+/coverage
+/spec/tmp
+/spec/reports
+/spec/examples.txt
+
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-[0-9]*
+
+/public/system
+/storage/*
+!/storage/.keep
+/public/uploads
+
+####################################
+# Rails assets (not needed for API-only, but safe)
+####################################
+/public/assets
+/public/packs
+/public/packs-test
+
+####################################
+# Node / React / Vite
+####################################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+dist/
+build/
+
+.vite/
+.yarn-integrity
+
+####################################
+# Testing / coverage (JS)
+####################################
+coverage/
+**/*.backup.*
+**/*.back.*
+
+####################################
+# Optional: Docker
+####################################
+*.pid
+*.seed
+*.pid.lock
+
+####################################
+# Optional: Database dumps
+####################################
+*.dump
+*.sql
+
+####################################
+# End
+####################################
