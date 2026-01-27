@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --color-primary: #B1C29E;
+    --color-accent-50:  #FFF6EB;
+    --color-accent-100: #FFE7C5;
+    --color-accent-200: #FFD28F;
+    --color-accent-300: #FFBC59;
+    --color-accent-400: #F8AE3C;
+    --color-accent-500: #F0A04B; /* base */
+    --color-accent-600: #D68624;
+    --color-accent-700: #B16C18;
+    --color-accent-800: #8C5414;
+    --color-accent-900: #5A360B;
+    --color-accent-light: #FADA7A;
+    --color-neutral: #FCE7C8;
+}
+
+
+/* App-wide tweaks only */
+html,
+body {
+    background-color: #FCE7C8;
+}

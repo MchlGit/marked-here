@@ -1,23 +1,33 @@
 ####################################
-# OS / Editor
+# OS
 ####################################
 .DS_Store
 .DS_*
-.idea/
-.vscode/
-*.swp
-*.swo
-*.sublime*
 Thumbs.db
+Desktop.ini
+
+####################################
+# Editor
+####################################
+.idea/
+*.user
+*.suo
+.vs/
+.vscode/
+
+####################################
+# .NET
+####################################
+[Bb]in/
+[Oo]bj/
+[Pp]ackages/
+secrets.json
 
 ####################################
 # Logs & temp files
 ####################################
 *.log
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+logs
 rerun.txt
 
 ####################################
@@ -25,41 +35,8 @@ rerun.txt
 ####################################
 .env
 .env.*
-config/master.key
-config/credentials/*.key
+!.env.example
 
-####################################
-# Ruby / Rails
-####################################
-*.gem
-*.rbc
-/.bundle
-/vendor/bundle
-/lib/bundler/man
-.byebug_history
-.rspec
-.rvmrc
-
-/coverage
-/spec/tmp
-/spec/reports
-/spec/examples.txt
-
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-[0-9]*
-
-/public/system
-/storage/*
-!/storage/.keep
-/public/uploads
-
-####################################
-# Rails assets (not needed for API-only, but safe)
-####################################
-/public/assets
-/public/packs
-/public/packs-test
 
 ####################################
 # Node / React / Vite
@@ -68,13 +45,15 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+pnpm-debug.log*dist-ssr
 
 dist/
+dist-ssr
 build/
-
 .vite/
 .yarn-integrity
+*.local
+
 
 ####################################
 # Testing / coverage (JS)
@@ -96,6 +75,3 @@ coverage/
 *.dump
 *.sql
 
-####################################
-# End
-####################################

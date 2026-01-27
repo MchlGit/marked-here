@@ -1,0 +1,6 @@
+@TreeRanker.Api_HostAddress = http://localhost:5202
+
+GET {{TreeRanker.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
