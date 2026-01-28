@@ -1,4 +1,4 @@
-export type Tree = {
+export type Spot = {
     id: number;
     name: string;
     latitude: number;
@@ -7,7 +7,7 @@ export type Tree = {
     createdAt: string;
 }
 
-export type CreateTreeInput = {
+export type CreateSpotInput = {
     name: string;
     latitude: number;
     longitude: number;

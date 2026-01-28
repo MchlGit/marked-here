@@ -1,16 +1,16 @@
 import {http, HttpResponse} from "msw";
 import {db} from "../db";
-import type {Tree} from "../../types/tree";
+import type {Spot} from "../../types/spot";
 
-export const treesHandlers = [
-    // GET /api/trees
-    http.get("/api/trees", () => {
-        return HttpResponse.json(db.trees);
+export const spotsHandlers = [
+    // GET /api/spots
+    http.get("/api/spots", () => {
+        return HttpResponse.json(db.spots);
     }),
 
-    // POST /api/trees
-    http.post("/api/trees", async ({request}) => {
-        const body = (await request.json()) as Partial<Tree>;
+    // POST /api/spots
+    http.post("/api/spots", async ({request}) => {
+        const body = (await request.json()) as Partial<Spot>;
 
         // Validation to mimic API
         if (!body.name) {
@@ -26,8 +26,8 @@ export const treesHandlers = [
             return HttpResponse.json({errors: ["Latitude/Longitude are required."]}, {status: 422});
         }
 
-        const newTree: Tree = {
-            id: db.nextTreeId++,
+        const newSpot: Spot = {
+            id: db.nextSpotId++,
             name: body.name,
             latitude: body.latitude,
             longitude: body.longitude,
@@ -35,7 +35,7 @@ export const treesHandlers = [
             createdAt: new Date().toISOString()
         }
 
-        db.trees = [newTree, ...db.trees];
-        return HttpResponse.json(newTree, {status: 201});
+        db.spots = [newSpot, ...db.spots];
+        return HttpResponse.json(newSpot, {status: 201});
     })
 ]

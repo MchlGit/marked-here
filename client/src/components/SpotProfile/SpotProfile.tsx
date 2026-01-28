@@ -1,11 +1,11 @@
-interface TreeProfileProps {
+interface SpotProfileProps {
     name: string;
     latitude: number;
     longitude: number;
     rating: number;
 }
 
-export default function TreeProfile(props: TreeProfileProps) {
+export default function SpotProfile(props: SpotProfileProps) {
     return (
         <div className="flex flex-col my-7 items-center bg-white p-7 rounded-lg">
             <img

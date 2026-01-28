@@ -1,7 +1,7 @@
 using System;
-namespace TreeRanker.Api.Models;
+namespace MarkedHere.Api.Models;
 
-public class Tree
+public class Spot
 {
     public int Id { get; set; }
     public required string Name { get; set; }

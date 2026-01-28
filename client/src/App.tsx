@@ -1,7 +1,7 @@
 import {Routes, Route, Outlet} from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar.tsx";
-import TreeProfilePage from "./pages/TreeProfilePage/TreeProfilePage.tsx";
-import CreateTreePage from "./pages/CreateTreePage/CreateTreePage.tsx";
+import SpotProfilePage from "./pages/SpotProfilePage/SpotProfilePage.tsx";
+import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage.tsx";
 
 export function Layout() {
     return (
@@ -19,8 +19,8 @@ function App() {
         <>
             <Routes>
                 <Route element={<Layout/>}>
-                    <Route path="/" element={<TreeProfilePage/>}/>
-                    <Route path="/create" element={<CreateTreePage/>}/>
+                    <Route path="/" element={<SpotProfilePage/>}/>
+                    <Route path="/create" element={<CreateSpotPage/>}/>
                 </Route>
             </Routes>
         </>

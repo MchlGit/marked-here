@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using TreeRanker.Api.Models;
+using MarkedHere.Api.Models;
 
-namespace TreeRanker.Api.Data;
+namespace MarkedHere.Api.Data;
 
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
-    public DbSet<Tree> Trees => Set<Tree>();
+    public DbSet<Spot> Spots => Set<Spot>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Tree>(e =>
+        modelBuilder.Entity<Spot>(e =>
         {
             e.Property(t => t.Name).IsRequired().HasMaxLength(255);
             e.Property(t => t.Rating).IsRequired();

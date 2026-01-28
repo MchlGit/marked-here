@@ -1,5 +1,5 @@
-import {treesHandlers} from "./trees.ts";
+import {spotsHandlers} from "./spots.ts";
 
 export const handlers = [
-    ...treesHandlers,
+    ...spotsHandlers,
 ];

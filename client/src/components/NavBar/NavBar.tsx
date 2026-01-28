@@ -10,14 +10,14 @@ export default function NavBar() {
                     <Link to="/">
                         <div className="flex items-center space-x-2">
                             <img src={logo} alt="tree logo" className="h-14"/>
-                            <span className="text-lg font-semibold">Tree Ranker</span>
+                            <span className="text-lg font-semibold">Marked Here</span>
                         </div>
                     </Link>
 
                     {/*    Nav Links*/}
                     <div className="flex space-x-6 text-sm">
-                        <Link to="/" className="hover:text-slate-300">Trees</Link>
-                        <Link to="/create" className="hover:text-slate-300">Submit Tree</Link>
+                        <Link to="/" className="hover:text-slate-300">Spots</Link>
+                        <Link to="/create" className="hover:text-slate-300">Submit Spot</Link>
                     </div>
                 </div>
             </div>

@@ -1,1 +1,1 @@
-export * from "./trees.ts"
+export * from "./spots.ts"

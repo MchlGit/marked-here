@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
-using TreeRanker.Api.Data;
+using MarkedHere.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

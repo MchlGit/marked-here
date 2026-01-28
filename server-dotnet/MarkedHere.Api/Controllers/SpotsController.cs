@@ -1,38 +1,38 @@
 using Microsoft.AspNetCore.Mvc; 
 using Microsoft.EntityFrameworkCore;
-using TreeRanker.Api.Data; 
-using TreeRanker.Api.Models;
+using MarkedHere.Api.Data;
+using MarkedHere.Api.Models;
 
-namespace TreeRanker.Api.Controllers;
+namespace MarkedHere.Api.Controllers;
 
 // NOTE: Using AppDbContext as a parameter variable inside the primary constructor instead of as an instance member.
 // Will this have unintended consequences??
 [ApiController]
 [Route("api/[controller]")]
-public class TreesController(AppDbContext db) : ControllerBase
+public class SpotsController(AppDbContext db) : ControllerBase
 {
 	[HttpGet]
-    public async Task<ActionResult<List<Tree>>> GetTrees()
+    public async Task<ActionResult<List<Spot>>> GetSpots()
     {
-        var trees = await db.Trees
+        var spots = await db.Spots
 			.OrderByDescending(t => t.CreatedAt)
 			.Take(50)
 			.ToListAsync(); 
 
 
-		return Ok(trees); 
+		return Ok(spots); 
     }
     
-    public record CreateTreeRequest(string Name, decimal Latitude, decimal Longitude, decimal Rating);
+    public record CreateSpotRequest(string Name, decimal Latitude, decimal Longitude, decimal Rating);
 
     [HttpPost]
-    public async Task<ActionResult<Tree>> CreateTree([FromBody] CreateTreeRequest request)
+    public async Task<ActionResult<Spot>> CreateSpot([FromBody] CreateSpotRequest request)
     {
 	    Console.WriteLine("I made it!");
 	    if(string.IsNullOrWhiteSpace(request.Name)) return BadRequest("Name is required");
 	    if(request.Rating is < 0 or > 5) return BadRequest("Rating must be between 0 and 5");
 
-	    var tree = new Tree()
+	    var spot = new Spot()
 	    {
 		    Name = request.Name,
 		    Latitude = request.Latitude,
@@ -40,9 +40,9 @@ public class TreesController(AppDbContext db) : ControllerBase
 		    Rating = request.Rating,
 		    CreatedAt = DateTimeOffset.Now.ToUniversalTime()
 	    };
-	    db.Trees.Add(tree);
+	    db.Spots.Add(spot);
 	    await db.SaveChangesAsync();
-	    return CreatedAtAction(nameof(GetTrees), new { id = tree.Id }, tree);
+	    return CreatedAtAction(nameof(GetSpots), new { id = spot.Id }, spot);
     }
 
 

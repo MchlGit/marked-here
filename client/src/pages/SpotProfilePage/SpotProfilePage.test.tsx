@@ -1,19 +1,19 @@
 import {render, screen} from '@testing-library/react';
-import TreeProfilePage from './TreeProfilePage';
+import SpotProfilePage from './SpotProfilePage';
 import {describe} from "vitest";
 
 /**
- * This test uses MSV to intercept /api/trees
+ * This test uses MSV to intercept /api/spots
  * and behaves like a real user:
  *
  * - page loads
- * - trees render
+ * - spots render
  */
-describe('TreeProfilePage', () => {
-    it("renders existing trees", async () => {
-        render(<TreeProfilePage />);
+describe('SpotProfilePage', () => {
+    it("renders existing spots", async () => {
+        render(<SpotProfilePage />);
 
-        // Load existing trees from MSW (mock service worker)
+        // Load existing spots from MSW (mock service worker)
         expect(await screen.findByText("Big Cedar")).toBeInTheDocument();
         expect(await screen.findByText("Cool Maple")).toBeInTheDocument();
     })

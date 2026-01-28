@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace TreeRanker.Api.Migrations
+namespace MarkedHere.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -13,7 +13,7 @@ namespace TreeRanker.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Trees",
+                name: "Spots",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -26,7 +26,7 @@ namespace TreeRanker.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trees", x => x.Id);
+                    table.PrimaryKey("PK_Spots", x => x.Id);
                 });
         }
 
@@ -34,7 +34,7 @@ namespace TreeRanker.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Trees");
+                name: "Spots");
         }
     }
 }
