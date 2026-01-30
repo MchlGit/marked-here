@@ -5,7 +5,9 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 
 export function configureLeafletIcons() {
-    delete L.Icon.Default.prototype._getIconUrl;
+    if (!L?.Icon?.Default) return;
+
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
 
     L.Icon.Default.mergeOptions({
         iconRetinaUrl: markerIcon2x,

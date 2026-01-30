@@ -21,8 +21,7 @@ describe('CreateSpotPage', () => {
 
         // Create spot via form
         await user.type(screen.getByLabelText(/name/i), "Test Oak");
-        await user.type(screen.getByLabelText(/latitude/i), "12.34");
-        await user.type(screen.getByLabelText(/longitude/i), "-56.78");
+        await user.click(screen.getByRole("button", {name: /use my location/i}));
         await user.type(screen.getByLabelText(/rating/i), "5");
 
         await user.click(screen.getByRole("button", {name: /submit/i}));
