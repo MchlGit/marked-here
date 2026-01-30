@@ -7,15 +7,17 @@
     "lint": "eslint .",
     "dev": "vite",
     "dev:api": "vite --mode development",
-    "dev:mock": "vite --mode development.local",
+    "dev:mock": "vite --mode mock",
     "test": "vitest",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "leaflet": "^1.9.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.12.0"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",

@@ -22,6 +22,7 @@ export async function apiFetch<T>(
             ...(init?.headers || {})
         },
     });
+    console.log(res);
     const contentType = res.headers.get("content-type") || "";
     const data = contentType.includes("application/json")
         ? await res.json().catch(() => null)

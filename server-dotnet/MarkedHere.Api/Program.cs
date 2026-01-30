@@ -14,15 +14,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );
 
-builder.Services.AddHttpLogging(o =>
+builder.Services.AddHttpLogging(options =>
 {
-	o.LoggingFields = HttpLoggingFields.All; 
+	options.LoggingFields = HttpLoggingFields.All;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", policy =>
+        policy
+            .WithOrigins("http://localhost:5173") // Vite Dev Server
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+    );
 });
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseRouting();
+app.UseCors("DevCors");
 
 app.MapControllers();  
 

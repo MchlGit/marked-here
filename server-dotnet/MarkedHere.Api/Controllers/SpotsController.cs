@@ -28,7 +28,6 @@ public class SpotsController(AppDbContext db) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Spot>> CreateSpot([FromBody] CreateSpotRequest request)
     {
-	    Console.WriteLine("I made it!");
 	    if(string.IsNullOrWhiteSpace(request.Name)) return BadRequest("Name is required");
 	    if(request.Rating is < 0 or > 5) return BadRequest("Rating must be between 0 and 5");
 

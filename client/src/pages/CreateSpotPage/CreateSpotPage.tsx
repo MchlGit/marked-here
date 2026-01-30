@@ -1,18 +1,27 @@
-import {createSpot} from "../../api/spots.ts";
-import type {CreateSpotInput} from "@/types";
 import type {FormEvent} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import type {CreateSpotInput} from "@/types";
+import {createSpot} from "@api/spots.ts";
+import LocationPicker from "@components/LocationPicker/LocationPicker.tsx";
 
 export default function CreateSpotPage() {
     const navigate = useNavigate();
+    const [coords, setCoords] = useState<{latitude: number, longitude: number} | undefined>(undefined);
+
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
+        if(!coords) {
+            alert("Please choose a location on the map or use your location.");
+            return;
+        }
+
         const input: CreateSpotInput = {
             name: formData.get("spot-name") as string,
-            latitude: Number(formData.get("spot-latitude")),
-            longitude: Number(formData.get("spot-longitude")),
+            latitude: coords.latitude,
+            longitude: coords.longitude,
             rating: Number(formData.get("spot-rating"))
         }
 
@@ -31,7 +40,7 @@ export default function CreateSpotPage() {
         }
     }
 
-    return (<div className="mx-auto max-w-md px-4 py-8">
+    return (<div className="mx-auto px-4 py-8">
         <h1 className="mb-6 text-xl font-semibold text-slate-700">Create a Spot</h1>
         <form
             onSubmit={handleSubmit}
@@ -53,42 +62,7 @@ export default function CreateSpotPage() {
                     placeholder="e.g. Japanese Maple"
                 />
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div>
-                    <label
-                        htmlFor="spot-latitude"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Latitude
-                    </label>
-                    <input
-                        id="spot-latitude"
-                        name="spot-latitude"
-                        type="number"
-                        step="any"
-                        required
-                        className="mt-1 block w-full focus:outline-none focus:ring-2 focus:ring-accent-600"
-                        placeholder="47.6062"
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="spot-longitude"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Longitude
-                    </label>
-                    <input
-                        id="spot-longitude"
-                        name="spot-longitude"
-                        type="number"
-                        step="any"
-                        required
-                        className="mt-1 block w-full focus:outline-none focus:ring-2 focus:ring-accent-600"
-                        placeholder="-122.3321"
-                    />
-                </div>
-            </div>
+            <LocationPicker value={coords} onChange={setCoords} />
             <div>
                 <label
                     htmlFor="spot-rating"
