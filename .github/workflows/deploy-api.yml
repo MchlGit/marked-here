@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push Docker image 
-        working-directory: server
+        working-directory: server-dotnet
         run: | 
           IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:latest"
           docker build -t "$IMAGE_URI" . 
