@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "REPO=$GITHUB_REPOSITORY"
           echo "REF=$GITHUB_REF"
+          echo "arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/GitHubActionsDeployRole"
       
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
