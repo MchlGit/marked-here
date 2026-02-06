@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCors", policy =>
         policy
-            .WithOrigins("http://localhost:5173", "https://www.markedhere.com") // Vite Dev Server, Prod
+            .WithOrigins("http://localhost:5173", "https://www.markedhere.com","https://marked-here.pages.dev") // Vite Dev Server, Prod
             .AllowAnyHeader()
             .AllowAnyMethod()
     );
