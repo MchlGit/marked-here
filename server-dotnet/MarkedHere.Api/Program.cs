@@ -15,7 +15,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
 builder.Services.AddDbContext<AppDbContext>(options => 
-	options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+	{
+	    options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
+	    option.EnableDetailedErrors();
+	}
 );
 
 builder.Services.AddHttpLogging(options =>
@@ -35,6 +38,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+if(app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseRouting();
@@ -45,6 +53,29 @@ app.MapHealthChecks("/health");
 
 app.UseHttpsRedirection();
 app.UseHttpLogging();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        var feature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+        if(feature?.Error != null)
+        {
+            logger.LogError(feature.Error, "Unhandled exception for {Method} {Path}", context.Request.Method, context.Request.Path);
+        }
+
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/problem+json";
+        await context.Response.WriteAsJsonAsync(new
+        {
+            type = "https://httpstatuses.com/500",
+            title = "Internal Server Error",
+            status = 500,
+            detail = feature?.Error?.Message
+        });
+    });
+});
 
 
 app.Run();
