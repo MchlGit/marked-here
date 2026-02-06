@@ -137,7 +137,7 @@ resource "aws_apprunner_service" "api" {
 
         runtime_environment_variables = {
           ASPNETCORE_ENVIRONMENT = "Production"
-          ConnectionStrings__DefaultConnection = "Host=${aws_db_instance.postgres.address};Port=5432;Database=${var.db_name};Username=${var.db_name};Password=${var.db_password};Ssl Mode=Require;Trust Server Certificate=true"
+          ConnectionStrings__DefaultConnection = "Host=${aws_db_instance.postgres.address};Port=5432;Database=${var.db_name};Username=${var.db_username};Password=${var.db_password};Ssl Mode=Require;Trust Server Certificate=true"
         }
       }
     }
