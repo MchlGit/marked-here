@@ -30,11 +30,23 @@ namespace MarkedHere.Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Latitude")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("LocationLabel")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Longitude")
                         .HasColumnType("numeric");
@@ -44,8 +56,16 @@ namespace MarkedHere.Api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("Neighborhood")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<decimal>("Rating")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

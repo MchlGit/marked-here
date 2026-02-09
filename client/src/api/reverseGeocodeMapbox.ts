@@ -1,12 +1,4 @@
-export type Location = {
-    lat: number;
-    lng: number;
-    city?: string;
-    region?: string;
-    country?: string;
-    neighborhood?: string;
-    label?: string;
-}
+import type {Location} from "@/types/location.ts";
 
 export async function reverseGeocodeCityMapbox(
     lat: number,
@@ -35,10 +27,10 @@ export async function reverseGeocodeCityMapbox(
     return {
         lat: lat,
         lng: lng,
-        city: context.place.name,
+        city: context?.place?.name ?? "",
         region: context.region.name,
         country: context.country.name,
-        neighborhood: context.neighborhood.name,
-        label: property.name,
+        neighborhood: context?.neighborhood?.name ?? "",
+        locationLabel: property.name,
     };
 }

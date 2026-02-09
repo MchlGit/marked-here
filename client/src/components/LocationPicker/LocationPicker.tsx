@@ -1,6 +1,6 @@
 import {useMemo, useState, useEffect} from "react";
 import {MapContainer, TileLayer, Marker, useMap, useMapEvents} from "react-leaflet";
-import type {Location} from "../../api/reverseGeocodeMapbox";
+import type {Location} from "@/types/location";
 import {reverseGeocodeCityMapbox} from "../../api/reverseGeocodeMapbox";
 
 const [defaultLat, defaultLng] = [47.6062, -122.3321]; // Seattle
@@ -22,11 +22,11 @@ function ClickToSetMarker({onChange}: {onChange: (location: Location) => void}) 
     return null;
 }
 
-function RecenterMap({latitude, longitude}: { latitude: number; longitude: number }) {
+function RecenterMap({lat, lng}: { lat: number; lng: number }) {
     const map = useMap();
     useEffect(() => {
-        map.setView([latitude, longitude], map.getZoom(), {animate: true});
-    }, [latitude, longitude, map]);
+        map.setView([lat, lng], map.getZoom(), {animate: true});
+    }, [lat, lng, map]);
     return null;
 }
 
@@ -39,7 +39,7 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
             city: "Seattle",
             region: "Washington",
             country: "United States",
-            label: "Somewhere in Downtown"
+            locationLabel: "Somewhere in Downtown"
         }), []);
     const position = value ?? defaultCenter;
 
@@ -63,6 +63,7 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
                 setIsLocating(false);
                 setShouldRecenter(true);
                 const location = await reverseGeocodeCityMapbox(position.coords.latitude, position.coords.longitude)
+                console.log(`Current location: ${JSON.stringify(location)}`);
                 onChange(location);
             },
             (error) => {
@@ -108,12 +109,12 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
                     />
                     <ClickToSetMarker onChange={onChange} />
                     <Marker position={[position.lat, position.lng]} />
-                    {shouldRecenter && <RecenterMap latitude={position.lat} longitude={position.lng} />}
+                    {shouldRecenter && <RecenterMap lat={position.lat} lng={position.lng} />}
                 </MapContainer>
             </div>
 
             <div className="text-xs text-slate-600">
-                Lat: {position.lat.toFixed(6)} • Lng: {position.lng.toFixed(6)} • Neighborhood:{position.neighborhood} • City:{position.city} • Region:{position.region} • Country:{position.country} Place: {position.label},
+                Lat: {position.lat.toFixed(6)} • Lng: {position.lng.toFixed(6)} • Neighborhood:{position.neighborhood} • City:{position.city} • Region:{position.region} • Country:{position.country} Place: {position.locationLabel}
             </div>
 
         </div>

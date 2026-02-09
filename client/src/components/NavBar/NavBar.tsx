@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 
 export default function NavBar() {
     return (
-        <nav className="bg-primary text-white">
+        <nav className="bg-primary text-white w-full min-w-0">
             <div className="mx-auto max-w-6xl px-4">
                 <div className="flex h-16 items-center justify-between">
                     {/*Logo and Name*/}

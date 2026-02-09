@@ -4,29 +4,36 @@ import {useNavigate} from "react-router-dom";
 import type {CreateSpotInput} from "@/types";
 import {createSpot} from "@api/spots.ts";
 import LocationPicker from "@components/LocationPicker/LocationPicker.tsx";
+import type {Location} from "@/types/location.ts";
 
 export default function CreateSpotPage() {
     const navigate = useNavigate();
-    const [coords, setCoords] = useState<{latitude: number, longitude: number} | undefined>(undefined);
+    const [location, setLocation] = useState<Location | undefined>(undefined);
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
-        if(!coords) {
+        if(!location) {
             alert("Please choose a location on the map or use your location.");
             return;
         }
 
         const input: CreateSpotInput = {
             name: formData.get("spot-name") as string,
-            latitude: coords.latitude,
-            longitude: coords.longitude,
+            latitude: location.lat,
+            longitude: location.lng,
+            city: location.city ?? "",
+            country: location.country ?? "",
+            region: location.region ?? "",
+            neighborhood: location.neighborhood ?? "",
+            locationLabel: location.locationLabel ?? "",
             rating: Number(formData.get("spot-rating"))
         }
 
         // client side validation
         if (!input.name || !input.latitude || !input.longitude || !input.rating) {
+            console.log(JSON.stringify(input));
             alert("All fields are required");
             return;
         }
@@ -62,7 +69,7 @@ export default function CreateSpotPage() {
                     placeholder="e.g. Japanese Maple"
                 />
             </div>
-            <LocationPicker value={coords} onChange={setCoords} />
+            <LocationPicker value={location} onChange={setLocation} />
             <div>
                 <label
                     htmlFor="spot-rating"
