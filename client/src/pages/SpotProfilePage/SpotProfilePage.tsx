@@ -15,7 +15,7 @@ export default function SpotProfilePage() {
                 console.log(err);
                 setError(err);
             });
-    })
+    }, [])
 
     if (error) return <div>Error: {error}</div>;
 
