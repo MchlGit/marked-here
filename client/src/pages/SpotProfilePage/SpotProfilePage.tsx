@@ -24,7 +24,16 @@ export default function SpotProfilePage() {
             <h1 className="text-3xl text-center font-bold mt-3 my-7 text-gray-600">All Spots</h1>
             <ul className="grid grid-cols-[repeat(auto-fit,250px)] gap-6 justify-center">
                 {spots.map((spot) => (
-                    <SpotProfile key={spot.id} name={spot.name} latitude={spot.latitude} longitude={spot.longitude}
+                    <SpotProfile
+                        key={spot.id}
+                        name={spot.name}
+                        latitude={spot.latitude}
+                        longitude={spot.longitude}
+                        neighborhood={spot.neighborhood}
+                        city={spot.city}
+                        country={spot.country}
+                        region={spot.region}
+                        locationLabel={spot.locationLabel}
                         rating={spot.rating}/>
                 ))}
             </ul>

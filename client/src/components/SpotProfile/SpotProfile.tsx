@@ -29,8 +29,8 @@ export default function SpotProfile(props: SpotProfileProps) {
                 <h3 className="font-semibold text-gray-900 text-lg line-clamp-1 gap-1">
                     {props.name}
                 </h3>
-                <p className="text-sm text-gray-600">Fairwood</p>
-                <p className="text-sm text-gray-500">Renton, Washington</p>
+                <p className="text-sm text-gray-600">{props.neighborhood}</p>
+                <p className="text-sm text-gray-500">{props.city}, {props.region}</p>
                 <div className="flex items-center gap-2 text-sm mt-1">
                     <div className="flex items-center gap-1">
                         <span className="text-yellow-500">★</span>
