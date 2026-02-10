@@ -31,6 +31,11 @@ export const spotsHandlers = [
             name: body.name,
             latitude: body.latitude,
             longitude: body.longitude,
+            neighborhood: body.neighborhood ?? "",
+            city: body.city ?? "",
+            region: body.region ?? "",
+            country: body.country ?? "",
+            locationLabel: body.locationLabel ?? "",
             rating: body.rating,
             createdAt: new Date().toISOString()
         }

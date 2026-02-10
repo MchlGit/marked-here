@@ -114,7 +114,7 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
             </div>
 
             <div className="text-xs text-slate-600">
-                Lat: {position.lat.toFixed(6)} • Lng: {position.lng.toFixed(6)} • Neighborhood:{position.neighborhood} • City:{position.city} • Region:{position.region} • Country:{position.country} Place: {position.locationLabel}
+                Lat: {position.lat.toFixed(6)} • Lng: {position.lng.toFixed(6)} • Neighborhood: {position.neighborhood} • City: {position.city} • Region: {position.region} • Country: {position.country} • Place: {position.locationLabel}
             </div>
 
         </div>
