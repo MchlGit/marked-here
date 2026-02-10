@@ -23,7 +23,7 @@ public class SpotsController(AppDbContext db) : ControllerBase
 		return Ok(spots); 
     }
     
-    public record CreateSpotRequest(string Name, decimal Latitude, decimal Longitude, decimal Rating);
+    public record CreateSpotRequest(string Name, decimal Latitude, decimal Longitude, string City, string Neighborhood, string Region, string Country, string LocationLabel, decimal Rating);
 
     [HttpPost]
     public async Task<ActionResult<Spot>> CreateSpot([FromBody] CreateSpotRequest request)
@@ -37,6 +37,11 @@ public class SpotsController(AppDbContext db) : ControllerBase
 		    Latitude = request.Latitude,
 		    Longitude = request.Longitude,
 		    Rating = request.Rating,
+		    City = request.City,
+		    Country = request.Country,
+		    Region = request.Region,
+		    Neighborhood = request.Neighborhood,
+		    LocationLabel = request.LocationLabel,
 		    CreatedAt = DateTimeOffset.Now.ToUniversalTime()
 	    };
 	    db.Spots.Add(spot);

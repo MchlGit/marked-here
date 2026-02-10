@@ -25,3 +25,6 @@ html,
 body {
     background-color: #FCE7C8;
 }
+body {
+    min-width: 320px;
+}

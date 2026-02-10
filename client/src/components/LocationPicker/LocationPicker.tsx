@@ -1,36 +1,46 @@
 import {useMemo, useState, useEffect} from "react";
 import {MapContainer, TileLayer, Marker, useMap, useMapEvents} from "react-leaflet";
+import type {Location} from "@/types/location";
+import {reverseGeocodeCityMapbox} from "../../api/reverseGeocodeMapbox";
 
 const [defaultLat, defaultLng] = [47.6062, -122.3321]; // Seattle
-//const [defaultLat, defaultLng] = [47.4571944, -122.180500]; // Seattle
 
-
-type LatLng = {latitude: number, longitude: number};
 type Props = {
-    value?: LatLng;
-    onChange: (nextPosition: LatLng) => void;
+    value?: Location;
+    onChange: (nextLocation: Location) => void;
     heightPx?: number;
 }
 
-function ClickToSetMarker({onChange}: {onChange: (position: LatLng) => void}) {
+function ClickToSetMarker({onChange}: {onChange: (location: Location) => void}) {
     useMapEvents({
-        click(event) {
-            onChange({latitude: event.latlng.lat, longitude: event.latlng.lng});
+        async click(event) {
+            const {lat, lng} = event.latlng;
+            const location = await reverseGeocodeCityMapbox(lat, lng);
+            onChange(location);
         }
     });
     return null;
 }
 
-function RecenterMap({latitude, longitude}: { latitude: number; longitude: number }) {
+function RecenterMap({lat, lng}: { lat: number; lng: number }) {
     const map = useMap();
     useEffect(() => {
-        map.setView([latitude, longitude], map.getZoom(), {animate: true});
-    }, [latitude, longitude, map]);
+        map.setView([lat, lng], map.getZoom(), {animate: true});
+    }, [lat, lng, map]);
     return null;
 }
 
 export default function LocationPicker({value, onChange, heightPx = 320}: Props) {
-    const defaultCenter = useMemo(() => ({latitude: defaultLat, longitude: defaultLng}), []);
+    const defaultCenter = useMemo(() => (
+        {
+            lat: defaultLat,
+            lng: defaultLng,
+            neighborhood: "Downtown", // hardcode values for now
+            city: "Seattle",
+            region: "Washington",
+            country: "United States",
+            locationLabel: "Somewhere in Downtown"
+        }), []);
     const position = value ?? defaultCenter;
 
     const [geoError, setGeoError] = useState<string | null>(null);
@@ -49,14 +59,16 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
         }
 
         navigator.geolocation.getCurrentPosition(
-            (position) => {
+            async (position) => {
                 setIsLocating(false);
                 setShouldRecenter(true);
-                onChange({latitude: position.coords.latitude, longitude: position.coords.longitude});
+                const location = await reverseGeocodeCityMapbox(position.coords.latitude, position.coords.longitude)
+                console.log(`Current location: ${JSON.stringify(location)}`);
+                onChange(location);
             },
             (error) => {
                 setIsLocating(false);
-                setGeoError(`Error: ${error}` || "Error: Could not load location.");
+                setGeoError(error.code === error.PERMISSION_DENIED ? "Location Access must be enabled for browser." : "Location cannot be retrieved.");
             },
             {
                 enableHighAccuracy: true,
@@ -86,7 +98,7 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
 
             <div style={{height: heightPx}} className="overflow-hidden rounded-lg border">
                 <MapContainer
-                    center={[position.latitude, position.longitude]}
+                    center={[position.lat, position.lng]}
                     zoom={16}
                     scrollWheelZoom
                     style={{height:"100%", width:"100%"}}
@@ -96,13 +108,13 @@ export default function LocationPicker({value, onChange, heightPx = 320}: Props)
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <ClickToSetMarker onChange={onChange} />
-                    <Marker position={[position.latitude, position.longitude]} />
-                    {shouldRecenter && <RecenterMap latitude={position.latitude} longitude={position.longitude} />}
+                    <Marker position={[position.lat, position.lng]} />
+                    {shouldRecenter && <RecenterMap lat={position.lat} lng={position.lng} />}
                 </MapContainer>
             </div>
 
             <div className="text-xs text-slate-600">
-                Lat: {position.latitude.toFixed(6)} • Lng: {position.longitude.toFixed(6)}
+                Lat: {position.lat.toFixed(6)} • Lng: {position.lng.toFixed(6)} • Neighborhood: {position.neighborhood} • City: {position.city} • Region: {position.region} • Country: {position.country} • Place: {position.locationLabel}
             </div>
 
         </div>
