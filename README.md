@@ -68,7 +68,3 @@ Active personal project demonstrating:
 
 For portfolio and educational purposes. Licensing details TBD.
 
----
-## Author 
-
-Michelle 
