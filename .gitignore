@@ -18,8 +18,8 @@ Desktop.ini
 ####################################
 # .NET
 ####################################
-[Bb]in/
-[Oo]bj/
+*[Bb]in/
+*[Oo]bj/
 [Pp]ackages/
 secrets.json
 
