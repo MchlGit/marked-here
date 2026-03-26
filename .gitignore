@@ -20,6 +20,7 @@ Desktop.ini
 ####################################
 [Bb]in/
 [Oo]bj/
+**Debug/
 [Pp]ackages/
 secrets.json
 
